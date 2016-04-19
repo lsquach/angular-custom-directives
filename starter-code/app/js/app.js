@@ -1,7 +1,41 @@
 angular
   .module('CardsAgainstAssembly', [])
   .controller('CardsController', CardsController)
-  .controller('PlayersController', PlayersController);
+  .controller('PlayersController', PlayersController)
+  .directive('card', CardViewDirective) //1. start here to create own directive
+  .directive('scores', ScoreViewDirective);
+
+//2. create CardViewDirective function
+function CardViewDirective() {
+  var directive = {
+    controllerAs: 'vm',
+    controller: CardsController,
+    //'A' == attribute, 'E' == element, 'C' == class, 'M' == comment
+    restrict : 'E',
+    replace : false,
+    templateUrl :  "./templates/_cardView.html",
+    scope: {
+      question: '@'
+    }
+  };
+  return directive;
+}
+
+function ScoreViewDirective() {
+  var directive = {
+    controllerAs: 'vm',
+    controller: PlayersController,
+    //'A' == attribute, 'E' == element, 'C' == class, 'M' == comment
+    restrict : 'E',
+    replace : false,
+    templateUrl :  "./templates/_scoreView.html",
+    scope: {
+      name: '@',
+      points: '@'
+    }
+  };
+  return directive;
+}
 
 function CardsController() {
   var vm = this;
